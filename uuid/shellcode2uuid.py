@@ -56,6 +56,6 @@ uuid_list = []
 for i in range(group):
     bytes_a = buf[i * 16: 16 + i * 16]
     b = uuid.UUID(bytes_le=bytes_a)
-    list.append(str(b).encode())
+    uuid_list.append(str(b).encode())
 
 print(uuid_list)
